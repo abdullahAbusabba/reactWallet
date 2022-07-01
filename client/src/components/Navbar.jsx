@@ -1,18 +1,24 @@
 import { HiMenuAlt4 } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
 import logo from "../../images/logo.png";
-import { useState } from "react";
+// import { useState } from "react";
+import React, { useContext, useState } from "react";
+import { TransactionContext } from "../context/TransactionContext";
+
 const NavbarItem = ({ title, classProps }) => {
   return (
     <li
-      className={`py-2 px-7 mx-4 rounded-full cursor-pointer hover:bg-[#d0d1d4] hover:text-black ${classProps}`}
+      className={`py-2 px-7 mx-4 rounded  cursor-pointer hover:bg-hover:border-transparent hover:border ${classProps}`}
     >
       {title}{" "}
     </li>
   );
 };
+
 const Navbar = () => {
+  const { connectWallet, currentAccount } = useContext(TransactionContext);
   const [toggleMenu, setToggleMenu] = useState(false);
+
   return (
     <nav className="w-full flex md:justify-center justify-between items-center p-4">
       <div className="md:flex-[0.5] flex-initial justify-center items-center">
@@ -22,8 +28,20 @@ const Navbar = () => {
         {["Market", "Exchange", "NFT", "Wallet"].map((item, index) => (
           <NavbarItem key={item + index} title={item} />
         ))}
-        <li className="bg-[#2952e3] py-2 px-7 mx-4 rounded-full cursor-pointer  hover:bg-[#2546bd]">
-          Login
+        <li
+          className={`${
+            !currentAccount
+              ? "bg-[#2952e3] hover:bg-[#2546bd] border border-blue-500 rounded"
+              : "bg-transparent border-blue-500 rounded border hover:border-transparent hover:bg-blue-500"
+          } transition-all py-2 px-7 mx-4 rounded-full cursor-pointer`}
+        >
+          {!currentAccount ? (
+            <button type="button" onClick={connectWallet}>
+              Connect Wallet
+            </button>
+          ) : (
+            <button type="button">Connected</button>
+          )}
         </li>
       </ul>
       <div className="flex-relative">

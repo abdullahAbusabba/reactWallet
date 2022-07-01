@@ -4,7 +4,8 @@ import {
   Footer,
   Services,
   Transactions,
-  Welcome
+  Welcome,
+  EthereumCard
 } from "./components";
 
 const App = () => {
@@ -14,9 +15,11 @@ const App = () => {
         <Navbar />
         <Welcome />
       </div>
-      <Services />
       <Transactions />
       <Footer />
+      {/* <Services />
+      <Transactions />
+      <Footer /> */}
     </div>
   );
 };
